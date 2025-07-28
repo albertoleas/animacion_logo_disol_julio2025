@@ -41,7 +41,7 @@
 
     .carousel-wrapper {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       width: 100%;
       max-width: 800px;
@@ -68,6 +68,10 @@
       display: block;
     }
 
+    .video-controls-mobile {
+      display: none;
+    }
+
     .nav-arrow {
       font-size: 40px;
       color: #333;
@@ -89,24 +93,24 @@
       padding: 15px 0;
       font-size: 0.9em;
     }
-    
-footer a {
-  color: #cccccc;
-  text-decoration: none;
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
 
-footer a svg {
-  fill: #cccccc;
-  transition: fill 0.3s ease;
-}
+    footer a {
+      color: #cccccc;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
 
-footer a:hover svg {
-  fill: #00bcd4;
-  transform: scale(1.1);
-  cursor: pointer;
-}
+    footer a svg {
+      fill: #cccccc;
+      transition: fill 0.3s ease;
+    }
+
+    footer a:hover svg {
+      fill: #00bcd4;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
 
     .email-icon a {
       color: #bbb;
@@ -127,47 +131,56 @@ footer a:hover svg {
       fill: currentColor;
     }
 
-  @media (max-width: 768px) {
-  header h1 {
-    font-size: 1.1em;
-  }
+    /* 🎯 Estilos para móviles */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.1em;
+      }
 
-  header p {
-    font-size: 0.85em;
-  }
+      header p {
+        font-size: 0.85em;
+      }
 
-  .carousel-wrapper {
-    flex-direction: column;
-    padding: 0 10px;
-  }
+      .carousel-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+      }
 
-  .nav-arrow {
-    font-size: 30px;
-    padding: 10px;
-  }
+      .carousel {
+        width: 100vw;
+        max-width: none;
+        box-shadow: none;
+      }
 
-  .carousel {
-    width: 100%;
-    max-width: none;
-    box-shadow: none;
-  }
+      video {
+        width: 100vw;
+        height: auto;
+        display: block;
+      }
 
-  video {
-    width: 100vw;
-    height: auto;
-  }
+      .video-controls-mobile {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
 
-  footer {
-    font-size: 0.8em;
-    padding: 10px 0;
-  }
+      .nav-arrow {
+        font-size: 30px;
+        padding: 10px;
+        margin: 0 5px;
+      }
 
-  .email-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-}
+      footer {
+        font-size: 0.8em;
+        padding: 10px 0;
+      }
 
+      .email-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -178,8 +191,6 @@ footer a:hover svg {
 
   <main>
     <div class="carousel-wrapper">
-      <button class="nav-arrow" id="prevBtn">&#10094;</button>
-
       <div class="carousel">
         <div class="video-slide active">
           <video autoplay loop muted playsinline>
@@ -196,18 +207,21 @@ footer a:hover svg {
         </div>
       </div>
 
-      <button class="nav-arrow" id="nextBtn">&#10095;</button>
+      <div class="video-controls-mobile">
+        <button class="nav-arrow" id="prevBtn">&#10094;</button>
+        <button class="nav-arrow" id="nextBtn">&#10095;</button>
+      </div>
     </div>
   </main>
 
-<footer>
-  <p>© 2025 Alberto Oleas</p>
-  <a href="mailto:alberto.oleas@gmail.com" aria-label="Enviar correo">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20a2 2 0 0 0 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-    </svg>
-  </a>
-</footer>
+  <footer>
+    <p>© 2025 Alberto Oleas</p>
+    <a href="mailto:alberto.oleas@gmail.com" aria-label="Enviar correo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20a2 2 0 0 0 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+    </a>
+  </footer>
 
   <script>
     const slides = document.querySelectorAll('.video-slide');
