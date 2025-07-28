@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <title>Portafolio de Animaciones – Alberto Oleas</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       font-family: Helvetica, Arial, sans-serif;
       background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -86,6 +89,7 @@
       text-align: center;
       padding: 20px;
       font-size: 0.9em;
+      margin-top: auto;
     }
 
     .email-icon {
@@ -98,10 +102,19 @@
       font-size: 1.1em;
       font-weight: bold;
       transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .email-icon a:hover {
       color: #fff;
+    }
+
+    .email-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
     }
   </style>
 </head>
@@ -136,7 +149,13 @@
   <footer>
     <p>© 2025 Alberto Oleas – Portafolio en desarrollo</p>
     <div class="email-icon">
-      <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">Contáctame</a>
+      <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">
+        <!-- Ícono tipo sobre (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.8l-10 6.2L2 5.8V4zm0 3.7 9.4 5.8a1 1 0 0 0 1.2 0L22 7.7V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7.7z"/>
+        </svg>
+        Contáctame
+      </a>
     </div>
   </footer>
 
