@@ -81,13 +81,23 @@
       color: #000;
     }
 
-    footer {
-      background-color: #111;
-      color: #bbb;
-      text-align: center;
-      padding: 15px 0;
-      font-size: 0.9em;
-    }
+footer a {
+  color: #cccccc;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+footer a svg {
+  fill: #cccccc;
+  transition: fill 0.3s ease;
+}
+
+footer a:hover svg {
+  fill: #00bcd4;
+  transform: scale(1.1);
+  cursor: pointer;
+}
 
     .email-icon a {
       color: #bbb;
@@ -139,17 +149,14 @@
     </div>
   </main>
 
-  <footer>
-    <div class="email-icon">
-      <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">
-        <!-- Ícono tipo sobre (SVG) sin texto -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.8l-10 6.2L2 5.8V4zm0 3.7 9.4 5.8a1 1 0 0 0 1.2 0L22 7.7V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7.7z"/>
-        </svg>
-      </a>
-    </div>
-    <p>© 2025 Alberto Oleas – Portafolio en desarrollo</p>
-  </footer>
+<footer>
+  <p>© 2025 Alberto Oleas</p>
+  <a href="mailto:alberto.oleas@gmail.com" aria-label="Enviar correo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20a2 2 0 0 0 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+  </a>
+</footer>
 
   <script>
     const slides = document.querySelectorAll('.video-slide');
