@@ -17,26 +17,22 @@
       background-color: #111;
       color: white;
       text-align: center;
-      padding: 25px 20px 20px;
+      padding: 20px 0;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-
-    header p {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #ccc;
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .carousel-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 40px auto 60px;
-      max-width: 100%;
+      width: 100%;
+      max-width: 800px;
     }
 
     .carousel {
@@ -74,37 +70,21 @@
       color: #000;
     }
 
-    .carousel-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 800px;
-      margin: 40px auto 40px;
-    }
-
     footer {
       background-color: #111;
       color: #bbb;
       text-align: center;
-      padding: 20px;
+      padding: 15px 0;
       font-size: 0.9em;
-      margin-top: auto;
-    }
-
-    .email-icon {
-      margin-top: 10px;
     }
 
     .email-icon a {
       color: #bbb;
       text-decoration: none;
-      font-size: 1.1em;
-      font-weight: bold;
       transition: color 0.3s ease;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
     }
 
     .email-icon a:hover {
@@ -112,8 +92,8 @@
     }
 
     .email-icon svg {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       fill: currentColor;
     }
   </style>
@@ -121,42 +101,42 @@
 <body>
   <header>
     <h1>Portafolio de Animación</h1>
-    <p>Una muestra de animación con principios visuales aplicados en After Effects</p>
   </header>
 
-  <div class="carousel-controls">
-    <button class="nav-arrow" id="prevBtn">&#10094;</button>
+  <main>
+    <div class="carousel-wrapper">
+      <button class="nav-arrow" id="prevBtn">&#10094;</button>
 
-    <div class="carousel">
-      <div class="video-slide active">
-        <video autoplay loop muted playsinline>
-          <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
-          Tu navegador no soporta la etiqueta de video.
-        </video>
+      <div class="carousel">
+        <div class="video-slide active">
+          <video autoplay loop muted playsinline>
+            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+          </video>
+        </div>
+
+        <div class="video-slide">
+          <video autoplay loop controls playsinline>
+            <source src="Baterista03-01_low-res.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+          </video>
+        </div>
       </div>
 
-      <div class="video-slide">
-        <video autoplay loop controls playsinline>
-          <source src="Baterista03-01_low-res.mp4" type="video/mp4">
-          Tu navegador no soporta la etiqueta de video.
-        </video>
-      </div>
+      <button class="nav-arrow" id="nextBtn">&#10095;</button>
     </div>
-
-    <button class="nav-arrow" id="nextBtn">&#10095;</button>
-  </div>
+  </main>
 
   <footer>
-    <p>© 2025 Alberto Oleas – Portafolio en desarrollo</p>
     <div class="email-icon">
       <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">
-        <!-- Ícono tipo sobre (SVG) -->
+        <!-- Ícono tipo sobre (SVG) sin texto -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.8l-10 6.2L2 5.8V4zm0 3.7 9.4 5.8a1 1 0 0 0 1.2 0L22 7.7V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7.7z"/>
         </svg>
-        Contáctame
       </a>
     </div>
+    <p>© 2025 Alberto Oleas – Portafolio en desarrollo</p>
   </footer>
 
   <script>
