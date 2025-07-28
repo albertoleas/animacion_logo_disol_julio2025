@@ -27,12 +27,20 @@
       color: #ccc;
     }
 
+    .carousel-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px auto;
+      max-width: 100%;
+    }
+
     .carousel {
       position: relative;
       max-width: 720px;
-      margin: 40px auto;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      width: 100%;
       background-color: #000;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
     .video-slide {
@@ -49,28 +57,26 @@
     }
 
     .nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
       font-size: 40px;
-      color: white;
-      background: rgba(0, 0, 0, 0.4);
+      color: #333;
+      background: none;
       border: none;
       cursor: pointer;
-      padding: 10px;
-      z-index: 1;
+      padding: 20px;
+      transition: color 0.3s ease;
     }
 
     .nav-arrow:hover {
-      background: rgba(0, 0, 0, 0.7);
+      color: #000;
     }
 
-    #prevBtn {
-      left: 0;
-    }
-
-    #nextBtn {
-      right: 0;
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     footer {
@@ -102,21 +108,23 @@
     <p>Una muestra de animación con principios visuales aplicados en After Effects</p>
   </header>
 
-  <div class="carousel">
+  <div class="carousel-controls">
     <button class="nav-arrow" id="prevBtn">&#10094;</button>
 
-    <div class="video-slide active">
-      <video controls>
-        <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
-        Tu navegador no soporta la etiqueta de video.
-      </video>
-    </div>
+    <div class="carousel">
+      <div class="video-slide active">
+        <video autoplay loop muted playsinline>
+          <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+      </div>
 
-    <div class="video-slide">
-      <video controls>
-        <source src="Baterista03-01_low-res.mp4" type="video/mp4">
-        Tu navegador no soporta la etiqueta de video.
-      </video>
+      <div class="video-slide">
+        <video autoplay loop muted playsinline>
+          <source src="Baterista03-01_low-res.mp4" type="video/mp4">
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+      </div>
     </div>
 
     <button class="nav-arrow" id="nextBtn">&#10095;</button>
@@ -125,9 +133,7 @@
   <footer>
     <p>© 2025 Alberto Oleas – Portafolio en desarrollo</p>
     <div class="email-icon">
-      <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">
-        📧
-      </a>
+      <a href="mailto:alberto.oleas@gmail.com" title="Contáctame">📧</a>
     </div>
   </footer>
 
@@ -138,6 +144,13 @@
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
+        const video = slide.querySelector('video');
+        if (i === index) {
+          video.play();
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
       });
     }
 
