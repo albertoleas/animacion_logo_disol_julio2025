@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Portafolio de Animaciones – Alberto Oleas</title>
   <style>
     html, body {
@@ -23,7 +22,7 @@
 
     header h1 {
       margin: 0;
-      font-size: 1.4em;
+      font-size: 1.5em;
     }
 
     header p {
@@ -41,11 +40,11 @@
 
     .carousel-wrapper {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 100%;
       max-width: 800px;
-      padding: 20px 0;
     }
 
     .carousel {
@@ -56,38 +55,52 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
-    .slide {
+    .video-slide {
       display: none;
     }
 
-    .slide.active {
+    .video-slide.active {
       display: block;
     }
 
-    video, .lottie {
+    video {
       width: 100%;
       display: block;
     }
 
     .lottie {
-  background-color: #f9f9f9; /* gris muy claro */
-  padding: 20px 0;
+      display: none;
+      text-align: center;
+      background-color: #f9f9f9;
+      padding: 20px 0;
+    }
+
+    .lottie.active {
+      display: block;
     }
 
     .nav-arrow {
-  font-size: 40px;
-  color: #333;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  transition: color 0.3s ease;
+      font-size: 40px;
+      color: #333;
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: color 0.3s ease;
     }
 
-.nav-arrow:hover {
-  color: #000;
-    }    
+    .nav-arrow:hover {
+      color: #000;
+    }
+
+    .arrow-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
     footer {
       background-color: #111;
@@ -95,34 +108,15 @@
       text-align: center;
       padding: 15px 0;
       font-size: 0.9em;
-      margin-top: auto;
     }
 
-    footer a {
-      color: #cccccc;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-
-    footer a svg {
-      fill: #cccccc;
-      transition: fill 0.3s ease;
-    }
-
-    footer a:hover svg {
-      fill: #00bcd4;
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-    
     .email-icon svg {
       width: 20px;
       height: 20px;
       fill: #cccccc;
       transition: fill 0.3s ease;
     }
-    
+
     .email-icon a:hover svg {
       fill: #00bcd4;
       transform: scale(1.1);
@@ -130,7 +124,6 @@
     }
 
     @media (max-width: 768px) {
-      
       header h1 {
         font-size: 1.1em;
       }
@@ -139,24 +132,10 @@
         font-size: 0.85em;
       }
 
-  .carousel-wrapper {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .nav-arrow {
-    order: 1;
-    font-size: 30px;
-    padding: 5px 15px;
-  }
-
-  .carousel {
-    order: 0;
-    width: 100%;
-    max-width: none;
-    box-shadow: none;
-  }
+      .carousel {
+        width: 100%;
+        max-width: none;
+        box-shadow: none;
       }
 
       video, .lottie {
@@ -169,7 +148,13 @@
         padding: 10px 0;
       }
 
+      .email-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
 </head>
 <body>
   <header>
@@ -179,57 +164,55 @@
 
   <main>
     <div class="carousel-wrapper">
-      <button class="nav-arrow" id="prevBtn">&#10094;</button>
-
       <div class="carousel">
-        <!-- Slide 1: Logo animado (video) -->
-        <div class="slide active">
+        <div class="video-slide active">
           <video autoplay loop muted playsinline>
-            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4" />
+            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
-
-        <!-- Slide 2: Baterista (video) -->
-        <div class="slide">
+        <div class="video-slide">
           <video autoplay loop controls playsinline>
-            <source src="Baterista03-01_low-res.mp4" type="video/mp4" />
+            <source src="Baterista03-01_low-res.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
-
-        <!-- Slide 3: Pelota rebotando (Lottie JSON) -->
-        <div class="slide">
-          <div id="lottieSlide" class="lottie"></div>
-        </div>
+        <div class="lottie" id="lottieContainer"></div>
       </div>
-
-      <button class="nav-arrow" id="nextBtn">&#10095;</button>
+      <div class="arrow-container">
+        <button class="nav-arrow" id="prevBtn">&#10094;</button>
+        <button class="nav-arrow" id="nextBtn">&#10095;</button>
+      </div>
     </div>
   </main>
 
-<footer>
-  <p>© 2025 Alberto Oleas</p>
-  <span class="email-icon">
-    <a href="mailto:alberto.oleas@gmail.com" aria-label="Enviar correo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20a2 2 0 0 0 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-      </svg>
-    </a>
-  </span>
-</footer>
-
-  <!-- Lottie library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
+  <footer>
+    <p>© 2025 Alberto Oleas</p>
+    <span class="email-icon">
+      <a href="mailto:alberto.oleas@gmail.com" aria-label="Enviar correo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20a2 2 0 0 0 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+    </span>
+  </footer>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
+    const videoSlides = document.querySelectorAll('.video-slide');
+    const lottieContainer = document.getElementById('lottieContainer');
     let currentIndex = 0;
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
+    const lottieAnimation = lottie.loadAnimation({
+      container: lottieContainer,
+      renderer: 'svg',
+      loop: true,
+      autoplay: false,
+      path: 'pelota-rebote.json'
+    });
 
+    function showSlide(index) {
+      videoSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
         const video = slide.querySelector('video');
         if (video) {
           if (i === index) {
@@ -240,26 +223,28 @@
           }
         }
       });
+
+      if (index === 2) {
+        lottieContainer.classList.add('active');
+        lottieAnimation.play();
+      } else {
+        lottieContainer.classList.remove('active');
+        lottieAnimation.pause();
+        lottieAnimation.goToAndStop(0, true);
+      }
     }
 
     document.getElementById('nextBtn').addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slides.length;
+      currentIndex = (currentIndex + 1) % 3;
       showSlide(currentIndex);
     });
 
     document.getElementById('prevBtn').addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      currentIndex = (currentIndex - 1 + 3) % 3;
       showSlide(currentIndex);
     });
 
-    // Lottie animation setup
-    lottie.loadAnimation({
-      container: document.getElementById('lottieSlide'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'pelota-rebote.json'
-    });
+    showSlide(currentIndex);
   </script>
 </body>
 </html>
