@@ -7,10 +7,12 @@
     html, body {
       height: 100%;
       margin: 0;
+      padding: 0;
       font-family: Helvetica, Arial, sans-serif;
       background-color: #f0f0f0;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     header {
@@ -27,7 +29,7 @@
 
     header p {
       margin-top: 10px;
-      font-size: 0.9em;
+      font-size: 0.95em;
       color: #ccc;
     }
 
@@ -55,22 +57,16 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
-    .video-slide {
+    .slide {
       display: none;
     }
 
-    .video-slide.active {
+    .slide.active {
       display: block;
     }
 
-    video {
+    video, .lottie {
       width: 100%;
-      display: block;
-    }
-
-    .lottie {
-      width: 100%;
-      height: auto;
       display: block;
       background-color: #f0f0f0;
     }
@@ -129,13 +125,6 @@
     }
 
     @media (max-width: 768px) {
-      html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100vw !important;
-        overflow-x: hidden !important;
-      }
-
       header h1 {
         font-size: 6vw !important;
       }
@@ -144,33 +133,25 @@
         font-size: 4.5vw !important;
       }
 
-      .carousel {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-      }
-
-      video, .lottie {
+      .carousel,
+      .carousel-wrapper,
+      video,
+      .lottie {
         width: 100vw !important;
         max-width: 100vw !important;
         height: auto !important;
-        display: block !important;
         margin: 0 auto !important;
-      }
-
-      .carousel-wrapper {
-        width: 100vw !important;
         padding: 0 !important;
-        margin: 0 !important;
       }
 
       .arrow-container {
         flex-direction: row !important;
         justify-content: center !important;
-        gap: 10px !important;
         margin-top: 10px !important;
+      }
+
+      .nav-arrow {
+        font-size: 30px !important;
       }
 
       footer {
@@ -194,25 +175,22 @@
   <main>
     <div class="carousel-wrapper">
       <div class="carousel">
-        <div class="video-slide active">
+        <div class="slide active">
           <video autoplay loop muted playsinline>
             <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
-
-        <div class="video-slide">
+        <div class="slide">
           <video autoplay loop controls playsinline>
             <source src="Baterista03-01_low-res.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
-
-        <div class="video-slide">
+        <div class="slide">
           <div class="lottie" id="lottie-player"></div>
         </div>
       </div>
-
       <div class="arrow-container">
         <button class="nav-arrow" id="prevBtn">&#10094;</button>
         <button class="nav-arrow" id="nextBtn">&#10095;</button>
@@ -231,7 +209,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
   <script>
-    const slides = document.querySelectorAll('.video-slide, .lottie');
+    const slides = document.querySelectorAll('.slide');
     let currentIndex = 0;
 
     function showSlide(index) {
