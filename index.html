@@ -69,26 +69,23 @@
       min-height: 400px;
     }
 
-    video, .lottie {
+    video {
       width: 100%;
-      display: block;
       background-color: #f0f0f0;
+      display: block;
     }
 
-    /* Contenedor específico para la carita */
-    #lottie-carita-container {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto;
+    .lottie-slide {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
       background-color: #f0f0f0;
     }
 
-    #lottie-carita {
-      width: 100%;
-      height: 100%;
+    #lottie-pelota, #lottie-carita {
+      width: 200px;
+      height: 200px;
     }
 
     .arrow-container {
@@ -145,72 +142,52 @@
     }
 
     @media (max-width: 768px) {
-      * {
-        box-sizing: border-box;
-      }
-
-      header {
-        padding: 15px 0;
-      }
-
       header h1 {
         font-size: 24px;
-        margin: 0;
-        padding: 0 10px;
       }
 
       header p {
         font-size: 16px;
-        margin-top: 8px;
-        padding: 0 10px;
       }
 
-      .carousel,
-      .carousel-wrapper {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
+      .carousel, .carousel-wrapper {
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
       }
 
-      video,
-      .lottie {
-        width: 100vw !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
+      video {
+        width: 100vw;
+        height: auto;
       }
 
       .slide.active {
         min-height: 300px;
       }
 
-      #lottie-carita-container {
-        width: 200px;
-        height: 200px;
+      #lottie-pelota, #lottie-carita {
+        width: 160px;
+        height: 160px;
       }
 
       .arrow-container {
-        flex-direction: row !important;
-        justify-content: center !important;
-        margin-top: 15px !important;
-        width: 100%;
-        padding: 0 10px;
+        margin-top: 15px;
       }
 
       .nav-arrow {
-        font-size: 30px !important;
+        font-size: 30px;
       }
 
       footer {
-        font-size: 14px !important;
-        padding: 10px 0 !important;
+        font-size: 14px;
+        padding: 10px 0;
       }
 
       .email-icon svg {
-        width: 24px !important;
-        height: 24px !important;
+        width: 24px;
+        height: 24px;
       }
     }
   </style>
@@ -224,23 +201,26 @@
   <main>
     <div class="carousel-wrapper">
       <div class="carousel">
-        <div class="slide active">
+        <div class="slide active" id="slide-logo">
           <video autoplay loop muted playsinline>
-            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
-            Tu navegador no soporta la etiqueta de video.
+            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4" />
           </video>
         </div>
-        <div class="slide">
+
+        <div class="slide" id="slide-baterista">
           <video autoplay loop controls playsinline>
-            <source src="Baterista03-01_low-res.mp4" type="video/mp4">
-            Tu navegador no soporta la etiqueta de video.
+            <source src="Baterista03-01_low-res.mp4" type="video/mp4" />
           </video>
         </div>
-        <div class="slide">
-          <div class="lottie" id="lottie-pelota"></div>
+
+        <div class="slide" id="slide-pelota">
+          <div class="lottie-slide">
+            <div id="lottie-pelota"></div>
+          </div>
         </div>
-        <div class="slide">
-          <div id="lottie-carita-container">
+
+        <div class="slide" id="slide-carita">
+          <div class="lottie-slide" id="lottie-carita-container">
             <div id="lottie-carita"></div>
           </div>
         </div>
@@ -262,7 +242,6 @@
     </a>
   </footer>
 
-  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
   <script>
     const slides = document.querySelectorAll('.slide');
@@ -271,12 +250,10 @@
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
-
         const video = slide.querySelector('video');
         if (video) {
-          if (i === index) {
-            video.play();
-          } else {
+          if (i === index) video.play();
+          else {
             video.pause();
             video.currentTime = 0;
           }
@@ -303,8 +280,8 @@
       path: 'pelota-rebote.json'
     });
 
-    // Lottie carita con hover
-    const faceAnim = lottie.loadAnimation({
+    // Lottie carita
+    const caritaAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-carita'),
       renderer: 'svg',
       loop: false,
@@ -312,9 +289,9 @@
       path: 'cara_verde02.json'
     });
 
-    const faceContainer = document.getElementById('lottie-carita-container');
-    faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
-    faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
+    const caritaContainer = document.getElementById('lottie-carita-container');
+    caritaContainer.addEventListener('mouseenter', () => caritaAnim.goToAndPlay(0));
+    caritaContainer.addEventListener('mouseleave', () => caritaAnim.goToAndStop(0));
   </script>
 </body>
 </html>
