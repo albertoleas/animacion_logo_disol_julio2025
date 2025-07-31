@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portafolio de Animaciones – Alberto Oleas</title>
   <style>
     html, body {
@@ -32,7 +32,7 @@
       margin-top: 10px;
       font-size: 0.95em;
       color: #ccc;
-    }  
+    }
 
     main {
       flex: 1;
@@ -66,7 +66,7 @@
       display: block;
     }
 
-    video, .lottie {
+    video, .lottie, .hover-lottie {
       width: 100%;
       display: block;
       background-color: #f0f0f0;
@@ -125,29 +125,28 @@
       fill: currentColor;
     }
 
-    /* Estilos para móvil */
     @media (max-width: 768px) {
       * {
         box-sizing: border-box;
       }
-      
+
       header {
         padding: 15px 0;
       }
-      
+
       header h1 {
-        font-size: 20px;
+        font-size: 24px;
         margin: 0;
         padding: 0 10px;
       }
 
       header p {
-        font-size: 14px;
+        font-size: 16px;
         margin-top: 8px;
         padding: 0 10px;
       }
-      
-      .carousel, 
+
+      .carousel,
       .carousel-wrapper {
         width: 100vw !important;
         max-width: 100vw !important;
@@ -155,15 +154,16 @@
         padding: 0 !important;
         box-shadow: none !important;
       }
-      
-      video, 
-      .lottie {
+
+      video,
+      .lottie,
+      .hover-lottie {
         width: 100vw !important;
         height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
       }
-      
+
       .arrow-container {
         flex-direction: row !important;
         justify-content: center !important;
@@ -210,9 +210,13 @@
           </video>
         </div>
         <div class="slide">
-          <div class="lottie" id="lottie-player"></div>
+          <div class="lottie" id="lottie-pelota"></div>
+        </div>
+        <div class="slide">
+          <div class="hover-lottie" id="lottie-carita"></div>
         </div>
       </div>
+
       <div class="arrow-container">
         <button class="nav-arrow" id="prevBtn">&#10094;</button>
         <button class="nav-arrow" id="nextBtn">&#10095;</button>
@@ -229,6 +233,7 @@
     </a>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
   <script>
     const slides = document.querySelectorAll('.slide');
@@ -237,6 +242,7 @@
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
+
         const video = slide.querySelector('video');
         if (video) {
           if (i === index) {
@@ -259,13 +265,27 @@
       showSlide(currentIndex);
     });
 
+    // Lottie pelota
     lottie.loadAnimation({
-      container: document.getElementById('lottie-player'),
+      container: document.getElementById('lottie-pelota'),
       renderer: 'svg',
       loop: true,
       autoplay: true,
       path: 'pelota-rebote.json'
     });
+
+    // Lottie carita con hover
+    const faceAnim = lottie.loadAnimation({
+      container: document.getElementById('lottie-carita'),
+      renderer: 'svg',
+      loop: false,
+      autoplay: false,
+      path: 'cara_verde02.json'
+    });
+
+    const faceContainer = document.getElementById('lottie-carita');
+    faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
+    faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
   </script>
 </body>
 </html>
