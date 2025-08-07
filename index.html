@@ -85,12 +85,17 @@
 
     #lottie-pelota {
       width: 800px;
-      height: 300px;    
+      height: 300px;
     }
 
     #lottie-carita {
       width: 200px;
-      height: 200px;    
+      height: 200px;
+    }
+
+    #lottie-foco {
+      width: 200px;
+      height: 300px;
     }
     
     .arrow-container {
@@ -147,58 +152,63 @@
     }
 
     @media (max-width: 768px) {
-            header h1 {
-              font-size: 24px;
-            }
-      
-            header p {
-              font-size: 16px;
-            }
-      
-            .carousel, .carousel-wrapper {
-              width: 100vw;
-              max-width: 100vw;
-              margin: 0;
-              padding: 0;
-              box-shadow: none;
-            }
-      
-            video {
-              width: 100vw;
-              height: auto;
-            }
-      
-            .slide.active {
-              min-height: 300px;
-            }
-      
-            #lottie-pelota {
-              width: 400px;
-              height: 400px;
-            }
+      header h1 {
+        font-size: 24px;
+      }
 
-            #lottie-carita {
-              width: 160px;
-              height: 160px;
-            }
-      
-            .arrow-container {
-              margin-top: 15px;
-            }
-      
-            .nav-arrow {
-              font-size: 30px;
-            }
-      
-            footer {
-              font-size: 14px;
-              padding: 10px 0;
-            }
-      
-            .email-icon svg {
-              width: 24px;
-              height: 24px;
-            }
+      header p {
+        font-size: 16px;
+      }
+
+      .carousel, .carousel-wrapper {
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      video {
+        width: 100vw;
+        height: auto;
+      }
+
+      .slide.active {
+        min-height: 300px;
+      }
+
+      #lottie-pelota {
+        width: 400px;
+        height: 400px;
+      }
+
+      #lottie-carita {
+        width: 160px;
+        height: 160px;
+      }
+
+      #lottie-foco {
+        width: 160px;
+        height: 240px;
+      }
+
+      .arrow-container {
+        margin-top: 15px;
+      }
+
+      .nav-arrow {
+        font-size: 30px;
+      }
+
+      footer {
+        font-size: 14px;
+        padding: 10px 0;
+      }
+
+      .email-icon svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   </style>
 </head>
@@ -232,6 +242,12 @@
         <div class="slide" id="slide-carita">
           <div class="lottie-slide" id="lottie-carita-container">
             <div id="lottie-carita"></div>
+          </div>
+        </div>
+
+        <div class="slide" id="slide-foco">
+          <div class="lottie-slide">
+            <div id="lottie-foco"></div>
           </div>
         </div>
       </div>
@@ -290,7 +306,7 @@
       path: 'pelota-rebote.json'
     });
 
-    // Lottie carita
+    // Lottie carita con hover
     const caritaAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-carita'),
       renderer: 'svg',
@@ -302,6 +318,15 @@
     const caritaContainer = document.getElementById('lottie-carita-container');
     caritaContainer.addEventListener('mouseenter', () => caritaAnim.goToAndPlay(0));
     caritaContainer.addEventListener('mouseleave', () => caritaAnim.goToAndStop(0));
+
+    // Lottie foco
+    lottie.loadAnimation({
+      container: document.getElementById('lottie-foco'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'foco01.json'
+    });
   </script>
 </body>
 </html>
