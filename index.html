@@ -382,7 +382,7 @@
 
     function onWheelForBarra(e) {
       if (!barraAnim || !barraAnim.totalFrames) return;
-      const delta = -e.deltaY * 0.0008; // invertido y más lento
+      const delta = -e.deltaY * 0.0006; // invertido y más lento
       barraProgress = clamp(barraProgress + delta, 0, 1);
       actualizarBarraFrame();
     }
@@ -392,3 +392,4 @@
   </script>
 </body>
 </html>
+
