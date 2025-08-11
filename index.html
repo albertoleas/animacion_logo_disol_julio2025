@@ -67,6 +67,7 @@
       justify-content: center;
       align-items: center;
       min-height: 400px;
+      position: relative;
     }
 
     video, .lottie {
@@ -75,24 +76,31 @@
       background-color: #f0f0f0;
     }
 
-    /* Tamaños específicos */
-    #lottie-carita-container {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto;
+    /* Foco destello */
+    #foco-container {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    #lottie-foco-container {
-      width: 250px;
-      height: 250px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
+    #foco-destello {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,150,0.8) 0%, rgba(255,255,150,0) 70%);
+      filter: blur(20px);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 0;
+    }
+
+    #lottie-foco {
+      width: 200px;
+      height: 200px;
+      z-index: 1;
     }
 
     .arrow-container {
@@ -149,22 +157,12 @@
     }
 
     @media (max-width: 768px) {
-      * { box-sizing: border-box; }
-
-      header { padding: 15px 0; }
-
       header h1 {
         font-size: 24px;
-        margin: 0;
-        padding: 0 10px;
       }
-
       header p {
         font-size: 16px;
-        margin-top: 8px;
-        padding: 0 10px;
       }
-
       .carousel, .carousel-wrapper {
         width: 100vw !important;
         max-width: 100vw !important;
@@ -172,44 +170,17 @@
         padding: 0 !important;
         box-shadow: none !important;
       }
-
       video, .lottie {
         width: 100vw !important;
         height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
       }
-
-      .slide.active { min-height: 300px; }
-
-      #lottie-carita-container {
-        width: 200px;
-        height: 200px;
+      #lottie-foco {
+        width: 150px;
+        height: 150px;
       }
-
-      #lottie-foco-container {
-        width: 200px;
-        height: 200px;
-      }
-
-      .arrow-container {
-        flex-direction: row !important;
-        justify-content: center !important;
-        margin-top: 15px !important;
-        width: 100%;
-        padding: 0 10px;
-      }
-
-      .nav-arrow { font-size: 30px !important; }
-
-      footer {
-        font-size: 14px !important;
-        padding: 10px 0 !important;
-      }
-
-      .email-icon svg {
-        width: 24px !important;
-        height: 24px !important;
+      #foco-destello {
+        width: 220px;
+        height: 220px;
       }
     }
   </style>
@@ -244,7 +215,8 @@
           </div>
         </div>
         <div class="slide">
-          <div id="lottie-foco-container">
+          <div id="foco-container">
+            <div id="foco-destello"></div>
             <div id="lottie-foco"></div>
           </div>
         </div>
@@ -275,12 +247,10 @@
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
-
         const video = slide.querySelector('video');
         if (video) {
-          if (i === index) {
-            video.play();
-          } else {
+          if (i === index) video.play();
+          else {
             video.pause();
             video.currentTime = 0;
           }
@@ -319,7 +289,7 @@
     faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
     faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
-    // Foco clic
+    // Foco click on/off con destello
     let focoEncendido = false;
     const focoAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-foco'),
@@ -328,13 +298,17 @@
       autoplay: false,
       path: 'foco01.json'
     });
-    const focoContainer = document.getElementById('lottie-foco-container');
+    const destello = document.getElementById('foco-destello');
+    const focoContainer = document.getElementById('foco-container');
+
     focoContainer.addEventListener('click', () => {
       if (!focoEncendido) {
         focoAnim.goToAndPlay(0, true);
+        destello.style.opacity = '1';
         focoEncendido = true;
       } else {
         focoAnim.goToAndStop(0, true);
+        destello.style.opacity = '0';
         focoEncendido = false;
       }
     });
