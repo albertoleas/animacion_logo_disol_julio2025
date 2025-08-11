@@ -95,9 +95,19 @@
       height: 200px;
     }
 
-    #lottie-barra {
+    #lottie-barra-container {
       width: 100px;
       height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #lottie-barra {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
     }
 
     .arrow-container {
@@ -234,13 +244,13 @@
     <div class="carousel-wrapper">
       <div class="carousel">
         <div class="slide active">
-          <video autoplay loop muted playsinline>
+          <video autoplay loop muted playsinline preload="auto">
             <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
         <div class="slide">
-          <video autoplay loop controls playsinline>
+          <video autoplay loop controls playsinline preload="auto">
             <source src="Baterista03-01_low-res.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
@@ -257,7 +267,9 @@
           <div id="lottie-foco"></div>
         </div>
         <div class="slide">
-          <div id="lottie-barra"></div>
+          <div id="lottie-barra-container">
+            <div id="lottie-barra"></div>
+          </div>
         </div>
       </div>
 
@@ -289,7 +301,7 @@
         const video = slide.querySelector('video');
         if (video) {
           if (i === index) {
-            video.play();
+            video.play().catch(e => console.log('Autoplay prevented:', e));
           } else {
             video.pause();
             video.currentTime = 0;
@@ -329,7 +341,7 @@
     faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
     faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
-    // Foco con destello
+    // Foco con destello - CORREGIDO
     const focoContainer = document.getElementById('lottie-foco');
     const focoAnim = lottie.loadAnimation({
       container: focoContainer,
@@ -341,23 +353,25 @@
     let focoEncendido = false;
     focoContainer.addEventListener('click', () => {
       if (!focoEncendido) {
-        focoAnim.goToAndPlay(0);
+        focoAnim.playSegments([0, focoAnim.totalFrames], true);
       } else {
-        focoAnim.goToAndStop(0);
+        focoAnim.playSegments([focoAnim.totalFrames, 0], true);
       }
       focoEncendido = !focoEncendido;
     });
 
-    // Barra controlada por scroll invertido y más lenta
+    // Barra controlada por scroll invertido - CORREGIDO
     const barraContainer = document.getElementById('lottie-barra');
     const barraAnim = lottie.loadAnimation({
       container: barraContainer,
       renderer: 'svg',
       loop: false,
       autoplay: false,
-      path: 'Barra01.json'
+      path: 'Barra01.json',
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid meet' // Mantener relación de aspecto
+      }
     });
-    let barraProgress = 0;
 
     function clamp(num, min, max) {
       return Math.min(Math.max(num, min), max);
@@ -365,7 +379,7 @@
 
     function actualizarBarraFrame() {
       if (barraAnim && barraAnim.totalFrames) {
-        const frame = barraProgress * barraAnim.totalFrames;
+        const frame = clamp(barraProgress * barraAnim.totalFrames, 0, barraAnim.totalFrames);
         barraAnim.goToAndStop(frame, true);
       }
     }
@@ -387,10 +401,35 @@
       actualizarBarraFrame();
     }
 
-    window.addEventListener('scroll', onScrollForBarra);
-    window.addEventListener('wheel', onWheelForBarra, { passive: true });
+    // Solo activar eventos cuando el slide de la barra está visible
+    function handleSlideChange() {
+      const isBarraActive = slides[currentIndex].querySelector('#lottie-barra-container');
+      
+      if (isBarraActive) {
+        window.addEventListener('scroll', onScrollForBarra);
+        window.addEventListener('wheel', onWheelForBarra, { passive: true });
+      } else {
+        window.removeEventListener('scroll', onScrollForBarra);
+        window.removeEventListener('wheel', onWheelForBarra);
+      }
+    }
+
+    // Modificar los listeners de los botones para incluir handleSlideChange
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+      handleSlideChange();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+      handleSlideChange();
+    });
+
+    // Inicializar
+    showSlide(currentIndex);
+    handleSlideChange();
   </script>
 </body>
 </html>
-
-
