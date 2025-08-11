@@ -95,19 +95,9 @@
       height: 200px;
     }
 
-    #lottie-barra-container {
+    #lottie-barra {
       width: 100px;
       height: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      background-color: #f0f0f0;
-    }
-
-    #lottie-barra {
-      width: 100%;
-      height: 100%;
     }
 
     .arrow-container {
@@ -210,11 +200,6 @@
         height: 200px;
       }
 
-      #lottie-barra-container {
-        width: 80px;
-        height: 240px;
-      }
-
       .arrow-container {
         flex-direction: row !important;
         justify-content: center !important;
@@ -249,13 +234,13 @@
     <div class="carousel-wrapper">
       <div class="carousel">
         <div class="slide active">
-          <video autoplay loop muted playsinline preload="auto">
+          <video autoplay loop muted playsinline>
             <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
         <div class="slide">
-          <video autoplay loop controls playsinline preload="auto">
+          <video autoplay loop controls playsinline>
             <source src="Baterista03-01_low-res.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
@@ -272,9 +257,7 @@
           <div id="lottie-foco"></div>
         </div>
         <div class="slide">
-          <div id="lottie-barra-container">
-            <div id="lottie-barra"></div>
-          </div>
+          <div id="lottie-barra"></div>
         </div>
       </div>
 
@@ -294,63 +277,35 @@
     </a>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
   <script>
     const slides = document.querySelectorAll('.slide');
     let currentIndex = 0;
 
     function showSlide(index) {
-      // Validar índice
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
-      
-      // Ocultar todos los slides
-      slides.forEach(slide => {
-        slide.classList.remove('active');
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
         const video = slide.querySelector('video');
         if (video) {
-          video.pause();
-          video.currentTime = 0;
+          if (i === index) {
+            video.play();
+          } else {
+            video.pause();
+            video.currentTime = 0;
+          }
         }
       });
-      
-      // Mostrar slide actual
-      currentIndex = index;
-      slides[currentIndex].classList.add('active');
-      
-      // Reproducir video si existe
-      const currentVideo = slides[currentIndex].querySelector('video');
-      if (currentVideo) {
-        currentVideo.play().catch(e => console.log('Autoplay prevented:', e));
-      }
-      
-      // Manejar elementos específicos del slide
-      handleSlideSpecifics();
     }
 
-    function handleSlideSpecifics() {
-      // Barra - activar/desactivar eventos
-      const isBarraActive = currentIndex === 5;
-      
-      if (isBarraActive) {
-        window.addEventListener('scroll', onScrollForBarra);
-        window.addEventListener('wheel', onWheelForBarra, { passive: true });
-        // Resetear posición inicial
-        barraProgress = 1;
-        actualizarBarraFrame();
-      } else {
-        window.removeEventListener('scroll', onScrollForBarra);
-        window.removeEventListener('wheel', onWheelForBarra);
-      }
-    }
-
-    // Navegación
     document.getElementById('nextBtn').addEventListener('click', () => {
-      showSlide(currentIndex + 1);
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
     });
 
     document.getElementById('prevBtn').addEventListener('click', () => {
-      showSlide(currentIndex - 1);
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
     });
 
     // Pelota
@@ -370,45 +325,39 @@
       autoplay: false,
       path: 'cara_verde02.json'
     });
-    
-    document.getElementById('lottie-carita-container').addEventListener('mouseenter', () => {
-      faceAnim.goToAndPlay(0);
-    });
-    
-    document.getElementById('lottie-carita-container').addEventListener('mouseleave', () => {
-      faceAnim.goToAndStop(0);
-    });
+    const faceContainer = document.getElementById('lottie-carita-container');
+    faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
+    faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
-    // Foco con destello - Versión corregida
+    // Foco con destello
+    const focoContainer = document.getElementById('lottie-foco');
     const focoAnim = lottie.loadAnimation({
-      container: document.getElementById('lottie-foco'),
+      container: focoContainer,
       renderer: 'svg',
       loop: false,
       autoplay: false,
       path: 'foco01.json'
     });
-    
-    document.getElementById('lottie-foco').addEventListener('click', () => {
-      if (focoAnim.currentFrame <= 1) {
-        focoAnim.playSegments([0, focoAnim.totalFrames], true);
+    let focoEncendido = false;
+    focoContainer.addEventListener('click', () => {
+      if (!focoEncendido) {
+        focoAnim.goToAndPlay(0);
       } else {
-        focoAnim.playSegments([focoAnim.totalFrames, 0], true);
+        focoAnim.goToAndStop(0);
       }
+      focoEncendido = !focoEncendido;
     });
 
-    // Barra - Versión corregida
+    // Barra controlada por scroll invertido y más lenta
+    const barraContainer = document.getElementById('lottie-barra');
     const barraAnim = lottie.loadAnimation({
-      container: document.getElementById('lottie-barra'),
+      container: barraContainer,
       renderer: 'svg',
       loop: false,
       autoplay: false,
-      path: 'Barra01.json',
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid meet'
-      }
+      path: 'Barra01.json'
     });
-
-    let barraProgress = 1;
+    let barraProgress = 0;
 
     function clamp(num, min, max) {
       return Math.min(Math.max(num, min), max);
@@ -416,7 +365,7 @@
 
     function actualizarBarraFrame() {
       if (barraAnim && barraAnim.totalFrames) {
-        const frame = clamp(barraProgress * barraAnim.totalFrames, 0, barraAnim.totalFrames);
+        const frame = barraProgress * barraAnim.totalFrames;
         barraAnim.goToAndStop(frame, true);
       }
     }
@@ -433,13 +382,13 @@
 
     function onWheelForBarra(e) {
       if (!barraAnim || !barraAnim.totalFrames) return;
-      const delta = -e.deltaY * 0.0004;
+      const delta = -e.deltaY * 0.0008; // invertido y más lento
       barraProgress = clamp(barraProgress + delta, 0, 1);
       actualizarBarraFrame();
     }
 
-    // Inicialización
-    showSlide(0);
+    window.addEventListener('scroll', onScrollForBarra);
+    window.addEventListener('wheel', onWheelForBarra, { passive: true });
   </script>
 </body>
 </html>
