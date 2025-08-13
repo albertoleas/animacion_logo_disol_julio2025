@@ -362,47 +362,23 @@
     faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
     /* Foco (toggle con animación reversible + destello al encender) */
+    // Foco con destello
+    const focoContainer = document.getElementById('lottie-foco');
     const focoAnim = lottie.loadAnimation({
-      container: document.getElementById('lottie-foco'),
+      container: focoContainer,
       renderer: 'svg',
       loop: false,
       autoplay: false,
       path: 'foco01.json'
     });
-
-    let focoOn = false;
-    let focoBusy = false; // evita clics durante la animación
-    const focoContainer = document.getElementById('lottie-foco');
-
-    focoAnim.addEventListener('complete', () => {
-      focoBusy = false;
-      // si terminó en apagado, asegúrate de quitar brillo
-      if (!focoOn) focoContainer.style.filter = 'none';
-    });
-
+    let focoEncendido = false;
     focoContainer.addEventListener('click', () => {
-      if (focoBusy) return;
-      focoBusy = true;
-
-      const lastFrame = Math.max(0, Math.floor(focoAnim.totalFrames) - 1);
-
-      if (!focoOn) {
-        // Encender (forward)
-        focoAnim.setDirection(1);
-        focoAnim.goToAndPlay(0, true);
-        focoOn = true;
-        // destello breve
-        focoContainer.style.filter = 'drop-shadow(0 0 20px yellow)';
-        setTimeout(() => {
-          if (focoOn) focoContainer.style.filter = 'none';
-        }, 500);
+      if (!focoEncendido) {
+        focoAnim.goToAndPlay(0);
       } else {
-        // Apagar (reverse)
-        focoAnim.setDirection(-1);
-        focoAnim.goToAndPlay(lastFrame, true);
-        focoOn = false;
-        focoContainer.style.filter = 'none';
+        focoAnim.goToAndStop(0);
       }
+      focoEncendido = !focoEncendido;
     });
 
     /* Barra (scroll invertido + 20 pasos + clamp para no desaparecer) */
@@ -437,6 +413,7 @@
   </script>
 </body>
 </html>
+
 
 
 
