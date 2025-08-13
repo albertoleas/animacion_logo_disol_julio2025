@@ -23,8 +23,16 @@
       padding: 20px 0;
     }
 
-    header h1 { margin: 0; font-size: 1.5em; }
-    header p { margin-top: 10px; font-size: 0.95em; color: #ccc; }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
 
     main {
       flex: 1;
@@ -50,11 +58,17 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
-    .slide { display: none; }
+    .slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .slide.active {
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       min-height: 400px;
     }
 
@@ -64,72 +78,152 @@
       background-color: #f0f0f0;
     }
 
-    /* --- Carita --- */
     #lottie-carita-container {
-      width: 200px; height: 200px; margin: 0 auto;
-      display: flex; justify-content: center; align-items: center;
-    }
-    #lottie-carita { width: 100%; height: 100%; }
-
-    /* --- Foco con destello (overlay) --- */
-    #lottie-foco-container {
-      width: 220px; height: 220px; margin: 0 auto;
-      position: relative; display: flex; justify-content: center; align-items: center;
-      cursor: pointer;
-    }
-    #foco-destello {
-      position: absolute; z-index: 0;
-      width: 300px; height: 300px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,150,0.8) 0%, rgba(255,255,150,0) 70%);
-      filter: blur(18px);
-      pointer-events: none;
-      opacity: 0; transition: opacity 0.45s ease;
-    }
-    #lottie-foco {
-      width: 160px; height: 160px; z-index: 1; display: block;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
     }
 
-    /* --- Barra vertical --- */
-    #lottie-barra { width: 100px; height: 300px; }
+    #lottie-carita {
+      width: 100%;
+      height: 100%;
+    }
 
-    /* Flechas */
-    .arrow-container { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+    /* Texto de descripción de cada slide */
+    .slide-description {
+      color: #444;
+      font-size: 0.95em;
+      text-align: center;
+      margin-top: 15px;
+      max-width: 90%;
+      line-height: 1.4em;
+    }
+
+    .arrow-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
     .nav-arrow {
-      font-size: 40px; color: #333; background: none; border: none; cursor: pointer; padding: 10px;
+      font-size: 40px;
+      color: #333;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
       transition: color 0.3s ease;
     }
-    .nav-arrow:hover { color: #000; }
+
+    .nav-arrow:hover {
+      color: #000;
+    }
 
     footer {
-      background-color: #111; color: #bbb; text-align: center; padding: 15px 0; font-size: 0.9em;
+      background-color: #111;
+      color: #bbb;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9em;
     }
-    footer a { color: #ccc; text-decoration: none; display: inline-block; transition: transform 0.3s ease; }
-    footer a svg { fill: #ccc; transition: fill 0.3s ease; }
-    footer a:hover svg { fill: #00bcd4; transform: scale(1.1); cursor: pointer; }
-    .email-icon svg { width: 22px; height: 22px; fill: currentColor; }
 
-    /* Móvil */
+    footer a {
+      color: #cccccc;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    footer a svg {
+      fill: #cccccc;
+      transition: fill 0.3s ease;
+    }
+
+    footer a:hover svg {
+      fill: #00bcd4;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .email-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
     @media (max-width: 768px) {
-      * { box-sizing: border-box; }
-      header { padding: 15px 0; }
-      header h1 { font-size: 24px; margin: 0; padding: 0 10px; }
-      header p  { font-size: 16px; margin-top: 8px; padding: 0 10px; }
-
-      .carousel, .carousel-wrapper {
-        width: 100vw !important; max-width: 100vw !important;
-        margin: 0 !important; padding: 0 !important; box-shadow: none !important;
+      * {
+        box-sizing: border-box;
       }
-      video, .lottie { width: 100vw !important; height: auto !important; margin: 0 !important; padding: 0 !important; }
-      .slide.active { min-height: 300px; }
 
-      #lottie-carita-container { width: 180px; height: 180px; }
-      #lottie-foco-container { width: 180px; height: 180px; }
-      #foco-destello { width: 220px; height: 220px; filter: blur(14px); }
-      #lottie-foco { width: 140px; height: 140px; }
+      header {
+        padding: 15px 0;
+      }
 
-      .nav-arrow { font-size: 30px !important; }
-      footer { font-size: 14px !important; padding: 10px 0 !important; }
-      .email-icon svg { width: 24px !important; height: 24px !important; }
+      header h1 {
+        font-size: 24px;
+        margin: 0;
+        padding: 0 10px;
+      }
+
+      header p {
+        font-size: 16px;
+        margin-top: 8px;
+        padding: 0 10px;
+      }
+
+      .carousel,
+      .carousel-wrapper {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+
+      video,
+      .lottie {
+        width: 100vw !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .slide.active {
+        min-height: 300px;
+      }
+
+      #lottie-carita-container {
+        width: 200px;
+        height: 200px;
+      }
+
+      .arrow-container {
+        flex-direction: row !important;
+        justify-content: center !important;
+        margin-top: 15px !important;
+        width: 100%;
+        padding: 0 10px;
+      }
+
+      .nav-arrow {
+        font-size: 30px !important;
+      }
+
+      footer {
+        font-size: 14px !important;
+        padding: 10px 0 !important;
+      }
+
+      .email-icon svg {
+        width: 24px !important;
+        height: 24px !important;
+      }
     }
   </style>
 </head>
@@ -142,45 +236,37 @@
   <main>
     <div class="carousel-wrapper">
       <div class="carousel">
-        <!-- 1: Logo -->
         <div class="slide active">
           <video autoplay loop muted playsinline>
             <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
+          <div class="slide-description">Animación de logo de Disol, creada en After Effects con principios de exageración y fluidez.</div>
         </div>
-
-        <!-- 2: Baterista -->
         <div class="slide">
           <video autoplay loop controls playsinline>
             <source src="Baterista03-01_low-res.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
           </video>
+          <div class="slide-description">Animación de un baterista con sonido real grabado en batería acústica.</div>
         </div>
-
-        <!-- 3: Pelota -->
         <div class="slide">
           <div class="lottie" id="lottie-pelota"></div>
+          <div class="slide-description">Pelota que rebota de forma continua, demostrando principios básicos de animación.</div>
         </div>
-
-        <!-- 4: Carita (hover) -->
         <div class="slide">
           <div id="lottie-carita-container">
             <div id="lottie-carita"></div>
           </div>
+          <div class="slide-description">Coloca el mouse sobre la carita para ver el cambio de expresión.</div>
         </div>
-
-        <!-- 5: Foco (click + destello) -->
         <div class="slide">
-          <div id="lottie-foco-container">
-            <div id="foco-destello" aria-hidden="true"></div>
-            <div id="lottie-foco" role="button" aria-label="Foco interactivo"></div>
-          </div>
+          <div class="lottie" id="lottie-foco"></div>
+          <div class="slide-description">Haz clic sobre el foco para encenderlo y ver el destello de luz.</div>
         </div>
-
-        <!-- 6: Barra (scroll invertido + gradual) -->
         <div class="slide">
-          <div id="lottie-barra"></div>
+          <div class="lottie" id="lottie-barra"></div>
+          <div class="slide-description">Mueve el scroll del mouse hacia arriba o abajo para llenar o vaciar la barra.</div>
         </div>
       </div>
 
@@ -209,10 +295,15 @@
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
+
         const video = slide.querySelector('video');
         if (video) {
-          if (i === index) { try { video.play(); } catch(_){} }
-          else { video.pause(); video.currentTime = 0; }
+          if (i === index) {
+            video.play();
+          } else {
+            video.pause();
+            video.currentTime = 0;
+          }
         }
       });
     }
@@ -221,12 +312,13 @@
       currentIndex = (currentIndex + 1) % slides.length;
       showSlide(currentIndex);
     });
+
     document.getElementById('prevBtn').addEventListener('click', () => {
       currentIndex = (currentIndex - 1 + slides.length) % slides.length;
       showSlide(currentIndex);
     });
 
-    // Pelota
+    // Lottie pelota
     lottie.loadAnimation({
       container: document.getElementById('lottie-pelota'),
       renderer: 'svg',
@@ -235,7 +327,7 @@
       path: 'pelota-rebote.json'
     });
 
-    // Carita (hover)
+    // Lottie carita con hover
     const faceAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-carita'),
       renderer: 'svg',
@@ -243,43 +335,30 @@
       autoplay: false,
       path: 'cara_verde02.json'
     });
+
     const faceContainer = document.getElementById('lottie-carita-container');
     faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
     faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
-    // Foco (click) + destello restaurado
-    const focoContainer = document.getElementById('lottie-foco-container');
-    const focoPlayer = document.getElementById('lottie-foco');
-    const destello = document.getElementById('foco-destello');
+    // Lottie foco con destello
     const focoAnim = lottie.loadAnimation({
-      container: focoPlayer,
+      container: document.getElementById('lottie-foco'),
       renderer: 'svg',
       loop: false,
       autoplay: false,
       path: 'foco01.json'
     });
-    let focoEncendido = false;
-    let focoPlaying = false;
 
-    focoAnim.addEventListener('complete', () => {
-      focoPlaying = false;
-      focoEncendido = true;
-    });
-
+    const focoContainer = document.getElementById('lottie-foco');
     focoContainer.addEventListener('click', () => {
-      if (focoPlaying) return;
-      if (!focoEncendido) {
-        focoPlaying = true;
-        focoAnim.goToAndPlay(0, true);
-        destello.style.opacity = '1';
-      } else {
-        focoAnim.goToAndStop(0, true);
-        destello.style.opacity = '0';
-        focoEncendido = false;
-      }
+      focoAnim.goToAndPlay(0);
+      focoContainer.style.filter = 'drop-shadow(0 0 20px yellow)';
+      setTimeout(() => {
+        focoContainer.style.filter = 'none';
+      }, 500);
     });
 
-    // Barra (scroll invertido + más gradual)
+    // Lottie barra con scroll
     const barraAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-barra'),
       renderer: 'svg',
@@ -288,43 +367,20 @@
       path: 'Barra01.json'
     });
 
-    let barraProgress = 0; // 0..1
-    function clamp(v, a=0, b=1){ return Math.min(b, Math.max(a, v)); }
+    let barraFrame = 0;
+    const barraTotalFrames = 20;
 
-    function actualizarBarraFrame() {
-      if (!barraAnim || !barraAnim.totalFrames) return;
-      const lastFrame = Math.max(0, barraAnim.totalFrames - 1); // evita “desaparecer”
-      const frame = Math.round(barraProgress * lastFrame);
-      barraAnim.goToAndStop(frame, true);
-    }
+    window.addEventListener('wheel', (e) => {
+      const slideBarra = document.getElementById('lottie-barra').closest('.slide');
+      if (!slideBarra.classList.contains('active')) return;
 
-    function onScrollForBarra() {
-      if (!barraAnim || !barraAnim.totalFrames) return;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 30) {
-        const scrollTop = window.scrollY;
-        // invertido: scroll abajo vacía, scroll arriba llena
-        barraProgress = 1 - clamp(scrollTop / docHeight, 0, 1);
-        actualizarBarraFrame();
+      if (e.deltaY < 0 && barraFrame < barraTotalFrames) {
+        barraFrame++;
+      } else if (e.deltaY > 0 && barraFrame > 0) {
+        barraFrame--;
       }
-    }
-
-    function onWheelForBarra(e) {
-      if (!barraAnim || !barraAnim.totalFrames) return;
-      // invertido y más lento (~20 pasos)
-      const delta = -e.deltaY * 0.0008;
-      barraProgress = clamp(barraProgress + delta, 0, 1);
-      actualizarBarraFrame();
-    }
-
-    // Inicializa frame seguro y listeners
-    barraAnim.addEventListener('DOMLoaded', actualizarBarraFrame);
-    barraAnim.addEventListener('data_ready',  actualizarBarraFrame);
-    window.addEventListener('scroll', onScrollForBarra);
-    window.addEventListener('wheel',  onWheelForBarra, { passive: true });
-
-    // Estado inicial
-    showSlide(currentIndex);
+      barraAnim.goToAndStop(barraFrame * (barraAnim.totalFrames / barraTotalFrames), true);
+    });
   </script>
 </body>
 </html>
