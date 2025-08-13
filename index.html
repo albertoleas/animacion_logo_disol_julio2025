@@ -280,10 +280,11 @@
         <!-- Slide 5: Foco (click) -->
         <div class="slide" data-type="foco">
           <div class="slide-caption">Haz clic sobre el foco para encenderlo y volver a hacer clic para apagarlo.</div>
-          <div class="slide-content">
-            <div class="lottie" id="lottie-foco"></div>
-          </div>
-        </div>
+            <div class="slide-content">
+              <div id="lottie-foco-container">
+                <div id="lottie-foco"></div>
+    </div>
+  </div>
 
         <!-- Slide 6: Barra (scroll) -->
         <div class="slide" data-type="barra">
@@ -369,7 +370,7 @@
     });
 
     let focoOn = false;
-    let focoBusy = true; // evita clics durante la animación
+    let focoBusy = false; // evita clics durante la animación
     const focoContainer = document.getElementById('lottie-foco');
 
     focoAnim.addEventListener('complete', () => {
@@ -435,6 +436,7 @@
   </script>
 </body>
 </html>
+
 
 
 
