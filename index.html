@@ -62,23 +62,49 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      position: relative;
     }
 
     .slide.active {
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
       min-height: 400px;
     }
 
-    video, .lottie {
+    /* Texto descriptivo (fuera del contenedor de la animación, encima) */
+    .slide-caption {
+      color: #444;
+      font-size: 0.95em;
+      text-align: center;
+      margin: 14px 16px 10px; /* separa del header/contorno */
+      line-height: 1.4;
+      max-width: 90%;
+    }
+
+    /* Contenedores de contenido del slide */
+    .slide-content {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+
+    /* Videos a ancho completo del carrusel */
+    video {
+      width: 100%;
+      display: block;
+      background-color: #000; /* fondo del player */
+    }
+
+    /* Solo las Lottie que deben ir a ancho completo usan esta clase */
+    .lottie-full {
       width: 100%;
       display: block;
       background-color: #f0f0f0;
     }
 
+    /* Carita: tamaño controlado por su contenedor */
     #lottie-carita-container {
       width: 200px;
       height: 200px;
@@ -88,25 +114,21 @@
       align-items: center;
       background-color: #f0f0f0;
     }
+    #lottie-carita { width: 100%; height: 100%; }
 
-    #lottie-carita {
-      width: 100%;
-      height: 100%;
+    /* Foco: tamaño moderado en desktop */
+    #lottie-foco {
+      width: 360px;
+      max-width: 90%;
+      margin: 0 auto;
     }
 
-    /* Texto descriptivo sobre el contenedor */
-    .slide-text {
-      position: absolute;
-      top: 10px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      padding: 8px 15px;
-      box-sizing: border-box;
-      color: #444;
-      font-size: 0.95em;
-      background: rgba(240, 240, 240, 0.85);
-      border-radius: 4px;
+    /* Barra: vertical, tamaño moderado en desktop */
+    #lottie-barra {
+      width: 140px;
+      height: 420px; /* asegura formato vertical */
+      max-width: 90%;
+      margin: 0 auto;
     }
 
     .arrow-container {
@@ -125,10 +147,7 @@
       padding: 10px;
       transition: color 0.3s ease;
     }
-
-    .nav-arrow:hover {
-      color: #000;
-    }
+    .nav-arrow:hover { color: #000; }
 
     footer {
       background-color: #111;
@@ -144,44 +163,18 @@
       display: inline-block;
       transition: transform 0.3s ease;
     }
+    footer a svg { fill: #cccccc; transition: fill 0.3s ease; }
+    footer a:hover svg { fill: #00bcd4; transform: scale(1.1); cursor: pointer; }
 
-    footer a svg {
-      fill: #cccccc;
-      transition: fill 0.3s ease;
-    }
+    .email-icon svg { width: 22px; height: 22px; }
 
-    footer a:hover svg {
-      fill: #00bcd4;
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-
-    .email-icon svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
-
+    /* ====== MÓVIL ====== */
     @media (max-width: 768px) {
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
-      header {
-        padding: 15px 0;
-      }
-
-      header h1 {
-        font-size: 24px;
-        margin: 0;
-        padding: 0 10px;
-      }
-
-      header p {
-        font-size: 16px;
-        margin-top: 8px;
-        padding: 0 10px;
-      }
+      header { padding: 15px 0; }
+      header h1 { font-size: 24px; margin: 0; padding: 0 10px; }
+      header p  { font-size: 16px; margin-top: 8px; padding: 0 10px; }
 
       .carousel,
       .carousel-wrapper {
@@ -192,22 +185,20 @@
         box-shadow: none !important;
       }
 
+      /* Videos y SOLO las Lottie de ancho completo llenan pantalla en móvil */
       video,
-      .lottie {
+      .lottie-full {
         width: 100vw !important;
         height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
       }
 
-      .slide.active {
-        min-height: 300px;
-      }
+      /* Ajustes de tamaño en móvil para foco y barra */
+      #lottie-foco { width: 70vw; }
+      #lottie-barra { width: 22vw; height: 60vh; }
 
-      #lottie-carita-container {
-        width: 200px;
-        height: 200px;
-      }
+      .slide.active { min-height: 300px; }
 
       .arrow-container {
         flex-direction: row !important;
@@ -217,19 +208,10 @@
         padding: 0 10px;
       }
 
-      .nav-arrow {
-        font-size: 30px !important;
-      }
+      .nav-arrow { font-size: 30px !important; }
 
-      footer {
-        font-size: 14px !important;
-        padding: 10px 0 !important;
-      }
-
-      .email-icon svg {
-        width: 24px !important;
-        height: 24px !important;
-      }
+      footer { font-size: 14px !important; padding: 10px 0 !important; }
+      .email-icon svg { width: 24px !important; height: 24px !important; }
     }
   </style>
 </head>
@@ -242,37 +224,58 @@
   <main>
     <div class="carousel-wrapper">
       <div class="carousel">
+        <!-- Slide 1: Logo -->
         <div class="slide active">
-          <div class="slide-text">Animación de logo de Disol, creada en After Effects con principios de exageración y fluidez.</div>
-          <video autoplay loop muted playsinline>
-            <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
-            Tu navegador no soporta la etiqueta de video.
-          </video>
+          <div class="slide-caption">Animación de logo de Disol, creada en After Effects con principios de exageración y fluidez.</div>
+          <div class="slide-content">
+            <video autoplay loop muted playsinline>
+              <source src="Disol-Logo-Animacion-20250717-720.mp4" type="video/mp4">
+              Tu navegador no soporta la etiqueta de video.
+            </video>
+          </div>
         </div>
+
+        <!-- Slide 2: Baterista -->
         <div class="slide">
-          <div class="slide-text">Animación de un baterista con sonido real grabado en batería acústica.</div>
-          <video autoplay loop controls playsinline>
-            <source src="Baterista03-01_low-res.mp4" type="video/mp4">
-            Tu navegador no soporta la etiqueta de video.
-          </video>
+          <div class="slide-caption">Animación de un baterista con sonido real grabado en batería acústica.</div>
+          <div class="slide-content">
+            <video autoplay loop controls playsinline>
+              <source src="Baterista03-01_low-res.mp4" type="video/mp4">
+              Tu navegador no soporta la etiqueta de video.
+            </video>
+          </div>
         </div>
+
+        <!-- Slide 3: Pelota (ancho completo) -->
         <div class="slide">
-          <div class="slide-text">Pelota que rebota de forma continua, demostrando principios básicos de animación.</div>
-          <div class="lottie" id="lottie-pelota"></div>
+          <div class="slide-caption">Pelota que rebota de forma continua, demostrando principios básicos de animación.</div>
+          <div class="slide-content">
+            <div class="lottie lottie-full" id="lottie-pelota"></div>
+          </div>
         </div>
+
+        <!-- Slide 4: Carita (hover) -->
         <div class="slide">
-          <div class="slide-text">Coloca el mouse sobre la carita para ver el cambio de expresión.</div>
-          <div id="lottie-carita-container">
+          <div class="slide-caption">Coloca el mouse sobre la carita para ver el cambio de expresión.</div>
+          <div class="slide-content" id="lottie-carita-container">
             <div id="lottie-carita"></div>
           </div>
         </div>
+
+        <!-- Slide 5: Foco (click) -->
         <div class="slide">
-          <div class="slide-text">Haz clic sobre el foco para encenderlo y ver el destello de luz.</div>
-          <div class="lottie" id="lottie-foco"></div>
+          <div class="slide-caption">Haz clic sobre el foco para encenderlo y ver el destello de luz.</div>
+          <div class="slide-content">
+            <div class="lottie" id="lottie-foco"></div>
+          </div>
         </div>
+
+        <!-- Slide 6: Barra (scroll) -->
         <div class="slide">
-          <div class="slide-text">Mueve el scroll del mouse hacia arriba o abajo para llenar o vaciar la barra.</div>
-          <div class="lottie" id="lottie-barra"></div>
+          <div class="slide-caption">Mueve el scroll del mouse hacia arriba o abajo para llenar o vaciar la barra.</div>
+          <div class="slide-content">
+            <div class="lottie" id="lottie-barra"></div>
+          </div>
         </div>
       </div>
 
@@ -304,12 +307,8 @@
 
         const video = slide.querySelector('video');
         if (video) {
-          if (i === index) {
-            video.play();
-          } else {
-            video.pause();
-            video.currentTime = 0;
-          }
+          if (i === index) { video.play(); }
+          else { video.pause(); video.currentTime = 0; }
         }
       });
     }
@@ -324,7 +323,7 @@
       showSlide(currentIndex);
     });
 
-    // Lottie pelota
+    /* Pelota */
     lottie.loadAnimation({
       container: document.getElementById('lottie-pelota'),
       renderer: 'svg',
@@ -333,7 +332,7 @@
       path: 'pelota-rebote.json'
     });
 
-    // Lottie carita con hover
+    /* Carita (hover) */
     const faceAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-carita'),
       renderer: 'svg',
@@ -341,12 +340,11 @@
       autoplay: false,
       path: 'cara_verde02.json'
     });
-
     const faceContainer = document.getElementById('lottie-carita-container');
     faceContainer.addEventListener('mouseenter', () => faceAnim.goToAndPlay(0));
     faceContainer.addEventListener('mouseleave', () => faceAnim.goToAndStop(0));
 
-    // Lottie foco con destello
+    /* Foco (click + destello) */
     const focoAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-foco'),
       renderer: 'svg',
@@ -354,17 +352,14 @@
       autoplay: false,
       path: 'foco01.json'
     });
-
     const focoContainer = document.getElementById('lottie-foco');
     focoContainer.addEventListener('click', () => {
       focoAnim.goToAndPlay(0);
       focoContainer.style.filter = 'drop-shadow(0 0 20px yellow)';
-      setTimeout(() => {
-        focoContainer.style.filter = 'none';
-      }, 500);
+      setTimeout(() => { focoContainer.style.filter = 'none'; }, 500);
     });
 
-    // Lottie barra con scroll
+    /* Barra (scroll invertido + 20 pasos) */
     const barraAnim = lottie.loadAnimation({
       container: document.getElementById('lottie-barra'),
       renderer: 'svg',
@@ -374,18 +369,19 @@
     });
 
     let barraFrame = 0;
-    const barraTotalFrames = 20;
+    const barraTotalSteps = 20;
 
     window.addEventListener('wheel', (e) => {
       const slideBarra = document.getElementById('lottie-barra').closest('.slide');
       if (!slideBarra.classList.contains('active')) return;
 
-      if (e.deltaY < 0 && barraFrame < barraTotalFrames) {
-        barraFrame++;
+      if (e.deltaY < 0 && barraFrame < barraTotalSteps) {
+        barraFrame++;              // scroll arriba llena
       } else if (e.deltaY > 0 && barraFrame > 0) {
-        barraFrame--;
+        barraFrame--;              // scroll abajo vacía
       }
-      barraAnim.goToAndStop(barraFrame * (barraAnim.totalFrames / barraTotalFrames), true);
+      const target = barraFrame * (barraAnim.totalFrames / barraTotalSteps);
+      barraAnim.goToAndStop(target, true);
     });
   </script>
 </body>
