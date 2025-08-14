@@ -375,6 +375,10 @@
     focoContainer.addEventListener('click', () => {
       if (!focoEncendido) {
         focoAnim.goToAndPlay(0);
+        focoContainer.style.filter = 'drop-shadow(0 0 20px yellow)';
+        setTimeout(() => {
+          if (focoOn) focoContainer.style.filter = 'none';
+        }, 500);        
       } else {
         focoAnim.goToAndStop(0);
       }
@@ -413,6 +417,7 @@
   </script>
 </body>
 </html>
+
 
 
 
